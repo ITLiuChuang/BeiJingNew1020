@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/fl_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
     tools:context="com.atguigu.beijingnew1020.activity.MainActivity">
-<TextView
+<!--<TextView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:text="我是主页面"
-    android:gravity="center"/>
-</RelativeLayout>
+    android:gravity="center"/>-->
+</FrameLayout>

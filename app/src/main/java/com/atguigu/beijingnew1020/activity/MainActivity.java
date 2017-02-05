@@ -1,13 +1,19 @@
 package com.atguigu.beijingnew1020.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 
 import com.atguigu.beijingnew1020.R;
+import com.atguigu.beijingnew1020.fragment.ContentFragment;
+import com.atguigu.beijingnew1020.fragment.LeftMunuFragment;
 import com.atguigu.beijingnew1020.utils.DensityUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public class MainActivity extends SlidingFragmentActivity {
+
+    public static final String CONENT_TAG = "conent_tag";
+    public static final String LEFTMENU = "leftmenu";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,6 +35,21 @@ public class MainActivity extends SlidingFragmentActivity {
         slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 
         //6.设置主页面占的宽度dpi
-        slidingMenu.setBehindOffset(DensityUtil.dip2px(this,200));
+        slidingMenu.setBehindOffset(DensityUtil.dip2px(this, 200));
+
+        initFragment();
+    }
+
+    /**
+     * 初始化Fragment
+     */
+    private void initFragment() {
+        //1.开启事物
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        //2.替换:左侧菜单和主要
+        ft.replace(R.id.fl_content,new ContentFragment(), CONENT_TAG);
+        ft.replace(R.id.fl_leftmenu,new LeftMunuFragment(), LEFTMENU);
+        //3.提交
+        ft.commit();
     }
 }
