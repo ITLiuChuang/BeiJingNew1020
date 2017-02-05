@@ -1,5 +1,6 @@
 package com.atguigu.beijingnew1020.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -78,6 +79,9 @@ public class GuideActivity extends AppCompatActivity {
 
     @OnClick(R.id.but_start_main)
     public void onClick() {
+        Intent intent = new Intent(GuideActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private class MyPagerAdapter extends PagerAdapter {
@@ -122,7 +126,7 @@ public class GuideActivity extends AppCompatActivity {
             //红点移动的坐标 = 起始坐标 + 红点移动距离
             maginLeft = position * leftMagin + (int) (leftMagin * positionOffset);
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ivRedPoint.getLayoutParams();
-            params.leftMargin =maginLeft;
+            params.leftMargin = maginLeft;
             ivRedPoint.setLayoutParams(params);
         }
 
