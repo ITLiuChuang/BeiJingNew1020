@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.atguigu.beijingnew1020.R;
+import com.atguigu.beijingnew1020.utils.CacheUtils;
 import com.atguigu.beijingnew1020.utils.DensityUtil;
 
 import butterknife.ButterKnife;
@@ -79,6 +80,10 @@ public class GuideActivity extends AppCompatActivity {
 
     @OnClick(R.id.but_start_main)
     public void onClick() {
+
+        //1.保存参数，记录已经进入过引导页面，下次就不进
+        CacheUtils.putBoolean(this,"start_main",true);
+        //2.进入主页面
         Intent intent = new Intent(GuideActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
