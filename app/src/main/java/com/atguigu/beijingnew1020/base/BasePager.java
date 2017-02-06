@@ -21,7 +21,7 @@ public class BasePager {
     public TextView tv_title;
     public FrameLayout fl_main;
     /**
-     * 代表各个页面的实例
+     * 代表各个页面的实例,视图
      */
     public View rootView;
 

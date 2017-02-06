@@ -31,7 +31,9 @@ public class GuideActivity extends AppCompatActivity {
     LinearLayout llMain;
     @InjectView(R.id.iv_red_point)
     ImageView ivRedPoint;
-
+    /**
+     * 数据集合
+     */
     private int[] ids = {R.drawable.guide_1, R.drawable.guide_2, R.drawable.guide_3};
     //间距
     private int leftMagin;
@@ -82,7 +84,7 @@ public class GuideActivity extends AppCompatActivity {
     public void onClick() {
 
         //1.保存参数，记录已经进入过引导页面，下次就不进
-        CacheUtils.putBoolean(this,"start_main",true);
+        CacheUtils.putBoolean(this, "start_main", true);
         //2.进入主页面
         Intent intent = new Intent(GuideActivity.this, MainActivity.class);
         startActivity(intent);
@@ -127,10 +129,11 @@ public class GuideActivity extends AppCompatActivity {
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             //红点移动距离 ： 间距 = 手滑动的距离：屏幕宽 = 屏幕滑动的百分比
             //红点移动距离 = 间距 * 屏幕滑动的百分比
-            int maginLeft = (int) (leftMagin * positionOffset);
+            //int maginLeft = (int) (leftMagin * positionOffset);
             //红点移动的坐标 = 起始坐标 + 红点移动距离
-            maginLeft = position * leftMagin + (int) (leftMagin * positionOffset);
+            int maginLeft = (int) (leftMagin * (position + positionOffset));
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ivRedPoint.getLayoutParams();
+            //距离左边的距离发生变化
             params.leftMargin = maginLeft;
             ivRedPoint.setLayoutParams(params);
         }

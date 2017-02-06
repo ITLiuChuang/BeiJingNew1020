@@ -1,17 +1,22 @@
 package com.atguigu.beijingnew1020.fragment;
 
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
 import com.atguigu.beijingnew1020.R;
+import com.atguigu.beijingnew1020.activity.MainActivity;
 import com.atguigu.beijingnew1020.base.BaseFragment;
 import com.atguigu.beijingnew1020.base.BasePager;
 import com.atguigu.beijingnew1020.pager.HomePager;
 import com.atguigu.beijingnew1020.pager.NewsCenterPager;
 import com.atguigu.beijingnew1020.pager.SettingPager;
+import com.atguigu.beijingnew1020.view.NoScrollViewPager;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
 import java.util.ArrayList;
 
@@ -23,11 +28,13 @@ import butterknife.InjectView;
  */
 
 public class ContentFragment extends BaseFragment {
-    @InjectView(R.id.viewpager)
-    ViewPager viewpager;
     @InjectView(R.id.rg_main)
     RadioGroup rgMain;
-
+    @InjectView(R.id.viewpager)
+    NoScrollViewPager viewpager;
+    /**
+     * 三个页面的集合
+     */
     private ArrayList<BasePager> basePagers;
 
     @Override
@@ -46,7 +53,7 @@ public class ContentFragment extends BaseFragment {
 
         //设置ViewPager的适配器
         setAdapter();
-
+        //设置RadioGroup状态选中的监听
         initListener();
 
     }
@@ -55,12 +62,18 @@ public class ContentFragment extends BaseFragment {
         rgMain.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                //先默认设置不可以滑动
+                MainActivity mainActivity = (MainActivity) mContent;
+                mainActivity.getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+
                 switch (checkedId) {
                     case R.id.rb_home:
                         viewpager.setCurrentItem(0, false);
                         break;
                     case R.id.rb_news:
                         viewpager.setCurrentItem(1, false);
+                        //当切换到新闻的时候,修改成可以滑动
+                        mainActivity.getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
                         break;
                     case R.id.rb_setting:
                         viewpager.setCurrentItem(2, false);
@@ -69,6 +82,38 @@ public class ContentFragment extends BaseFragment {
             }
         });
         rgMain.check(R.id.rb_news);
+
+        //监听页面的选中
+        viewpager.addOnPageChangeListener(new MyOnPageChangeListener());
+        basePagers.get(1).initData();//孩子的视图和父类的FrameLayout结合
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.inject(this, rootView);
+        return rootView;
+    }
+
+    private class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+
+            BasePager basePager = basePagers.get(position);
+            //调用initData
+            basePagers.get(position).initData();//孩子的视图和父类的FrameLayout结合
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
     }
 
     private void setAdapter() {
@@ -88,7 +133,7 @@ public class ContentFragment extends BaseFragment {
             View rootView = basePager.rootView;//代表不同页面的实例
 
             //调用initData
-            basePager.initData();
+            // basePager.initData();//孩子的视图和父类的FrameLayout结合
 
             container.addView(rootView);
             return rootView;
@@ -118,4 +163,6 @@ public class ContentFragment extends BaseFragment {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
+
+
 }
