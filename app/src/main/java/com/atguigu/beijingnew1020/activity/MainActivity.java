@@ -13,7 +13,7 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 public class MainActivity extends SlidingFragmentActivity {
 
     public static final String CONENT_TAG = "conent_tag";
-    public static final String LEFTMENU = "leftmenu";
+    public static final String LEFTMENU_TAG = "leftmenu";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,17 @@ public class MainActivity extends SlidingFragmentActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         //2.替换:左侧菜单和主要
         ft.replace(R.id.fl_content,new ContentFragment(), CONENT_TAG);
-        ft.replace(R.id.fl_leftmenu,new LeftMunuFragment(), LEFTMENU);
+        ft.replace(R.id.fl_leftmenu,new LeftMunuFragment(), LEFTMENU_TAG);
         //3.提交
         ft.commit();
+    }
+
+    /**
+     * 得到左侧菜单
+     * @return
+     */
+    public LeftMunuFragment getLeftMenuFragment(){
+        //找同一个实例
+        return (LeftMunuFragment) getSupportFragmentManager().findFragmentByTag(LEFTMENU_TAG);
     }
 }
