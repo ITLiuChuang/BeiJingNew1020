@@ -9,8 +9,13 @@ import android.widget.TextView;
 
 import com.atguigu.beijingnew1020.activity.MainActivity;
 import com.atguigu.beijingnew1020.base.BasePager;
+import com.atguigu.beijingnew1020.base.MenuDetailBasePager;
 import com.atguigu.beijingnew1020.bean.NewsCenterBean;
-import com.atguigu.beijingnew1020.fragment.LeftMunuFragment;
+import com.atguigu.beijingnew1020.detailpager.InteractMenuDetailPager;
+import com.atguigu.beijingnew1020.detailpager.NewsMenuDetailPager;
+import com.atguigu.beijingnew1020.detailpager.PhotosMenuDetailPager;
+import com.atguigu.beijingnew1020.detailpager.TopicMenuDetailPager;
+import com.atguigu.beijingnew1020.fragment.LeftMenuFragment;
 import com.atguigu.beijingnew1020.utils.Constants;
 import com.google.gson.Gson;
 
@@ -18,6 +23,7 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +31,8 @@ import java.util.List;
  */
 
 public class NewsCenterPager extends BasePager {
+
+    private ArrayList<MenuDetailBasePager> menuDetailBasePagers;
     /**
      * 左侧菜单对应的数据
      */
@@ -37,12 +45,12 @@ public class NewsCenterPager extends BasePager {
     @Override
     public void initData() {
         super.initData();
+        //显示菜单按钮
+        ib_menu.setVisibility(View.VISIBLE);
         //设置标题
         tv_title.setText("新闻");
         Log.e("TAG", "新闻页面加载数据了");
 
-        //显示菜单按钮
-        ib_menu.setVisibility(View.VISIBLE);
         //实例化视图
         TextView textView = new TextView(mContext);
         textView.setTextSize(20);
@@ -96,13 +104,40 @@ public class NewsCenterPager extends BasePager {
         //1.解析数据：手动解析（用系统的Api解析）和第三方解析json的框架（Gson,fastjson）
         NewsCenterBean centerBean = new Gson().fromJson(json, NewsCenterBean.class);
         dataBeanList = centerBean.getData();
-        Log.e("TAG","新闻中心解析成功="+dataBeanList.get(0).getChildren().get(0).getTitle());
+        Log.e("TAG", "新闻中心解析成功=" + dataBeanList.get(0).getChildren().get(0).getTitle());
         //把新闻中心的数据传递给左侧菜单
         MainActivity mainActivity = (MainActivity) mContext;
+        Log.e("TAG", "新闻");
         //得到左侧菜单
-        LeftMunuFragment leftMunuFragment = mainActivity.getLeftMenuFragment();
+        LeftMenuFragment leftMunuFragment = mainActivity.getLeftMenuFragment();
+
+        //2. 绑定数据
+        menuDetailBasePagers = new ArrayList<>();
+        menuDetailBasePagers.add(new NewsMenuDetailPager(mainActivity));//新闻详情页面
+        menuDetailBasePagers.add(new TopicMenuDetailPager(mainActivity));//专题详情页面
+        menuDetailBasePagers.add(new PhotosMenuDetailPager(mainActivity));//组图详情页面
+        menuDetailBasePagers.add(new InteractMenuDetailPager(mainActivity));//互动详情页面
+
         //调用LeftMunuFragment的setData
         leftMunuFragment.setData(dataBeanList);
-        //2. 绑定数据
+
+    }
+
+    /**
+     * 更加位置切换到不同的详情页面
+     *
+     * @param prePosition
+     */
+    public void switchPager(int prePosition) {
+        //设置标题
+        tv_title.setText(dataBeanList.get(prePosition).getTitle());
+
+        MenuDetailBasePager menuDetailBasePager = menuDetailBasePagers.get(prePosition);
+        menuDetailBasePager.initData();
+
+        //视图
+        View rootView = menuDetailBasePager.rootView;
+        fl_main.removeAllViews();//移除之前的
+        fl_main.addView(rootView);
     }
 }

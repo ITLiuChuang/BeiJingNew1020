@@ -1,9 +1,7 @@
 package com.atguigu.beijingnew1020.fragment;
 
-import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
@@ -89,13 +87,13 @@ public class ContentFragment extends BaseFragment {
         basePagers.get(1).initData();//孩子的视图和父类的FrameLayout结合
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.inject(this, rootView);
-        return rootView;
-    }
+    /**
+     * 得到新闻中心
+     * @return
+     */
+   public NewsCenterPager getNewsCenterPager(){
+       return (NewsCenterPager) basePagers.get(1);
+   }
 
     private class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
         @Override

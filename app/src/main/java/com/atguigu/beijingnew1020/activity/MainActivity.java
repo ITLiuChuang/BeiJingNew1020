@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.atguigu.beijingnew1020.R;
 import com.atguigu.beijingnew1020.fragment.ContentFragment;
-import com.atguigu.beijingnew1020.fragment.LeftMunuFragment;
+import com.atguigu.beijingnew1020.fragment.LeftMenuFragment;
 import com.atguigu.beijingnew1020.utils.DensityUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -47,18 +47,23 @@ public class MainActivity extends SlidingFragmentActivity {
         //1.开启事物
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         //2.替换:左侧菜单和主要
-        ft.replace(R.id.fl_content,new ContentFragment(), CONENT_TAG);
-        ft.replace(R.id.fl_leftmenu,new LeftMunuFragment(), LEFTMENU_TAG);
+        ft.replace(R.id.fl_content, new ContentFragment(), CONENT_TAG);
+        ft.replace(R.id.fl_leftmenu, new LeftMenuFragment(), LEFTMENU_TAG);
         //3.提交
         ft.commit();
     }
 
     /**
      * 得到左侧菜单
+     *
      * @return
      */
-    public LeftMunuFragment getLeftMenuFragment(){
+    public LeftMenuFragment getLeftMenuFragment() {
         //找同一个实例
-        return (LeftMunuFragment) getSupportFragmentManager().findFragmentByTag(LEFTMENU_TAG);
+        return (LeftMenuFragment) getSupportFragmentManager().findFragmentByTag(LEFTMENU_TAG);
+    }
+
+    public ContentFragment getContentFragment() {
+        return (ContentFragment) getSupportFragmentManager().findFragmentByTag(CONENT_TAG);
     }
 }
