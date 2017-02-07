@@ -88,7 +88,7 @@ public class ContentFragment extends BaseFragment {
     }
 
     /**
-     * 得到新闻中心
+     *
      * @return
      */
    public NewsCenterPager getNewsCenterPager(){

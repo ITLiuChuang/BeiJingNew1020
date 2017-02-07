@@ -4,11 +4,11 @@
     android:id="@+id/fl_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="#fff"
     tools:context="com.atguigu.beijingnew1020.activity.MainActivity">
-<!--<TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:text="我是主页面"
-    android:gravity="center"/>-->
+    <!--<TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="我是主页面"
+        android:gravity="center"/>-->
 </FrameLayout>

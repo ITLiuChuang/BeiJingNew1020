@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.atguigu.beijingnew1020.R;
 import com.atguigu.beijingnew1020.base.MenuDetailBasePager;
 import com.atguigu.beijingnew1020.bean.NewsCenterBean;
+import com.viewpagerindicator.TabPageIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +26,15 @@ public class NewsMenuDetailPager extends MenuDetailBasePager {
      * 新闻详情页面的数据
      */
     private final List<NewsCenterBean.DataBean.ChildrenBean> childrenData;
+    @InjectView(R.id.indicator)
+    TabPageIndicator indicator;
+
+    @InjectView(R.id.viewpager)
+    ViewPager viewpager;
     /**
      * 页签页面的集合
      */
     private ArrayList<TabDetailPager> tabDetailPagers;
-
-    @InjectView(R.id.viewpager)
-    ViewPager viewpager;
 
     public NewsMenuDetailPager(Context mContext, NewsCenterBean.DataBean dataBean) {
         super(mContext);
@@ -51,14 +54,22 @@ public class NewsMenuDetailPager extends MenuDetailBasePager {
         super.initData();
         //准备数据-页面
         tabDetailPagers = new ArrayList<>();
+        //根据有多少数据创建多少个TabDetailPager，并且把数据传入到对象中
         for (int i = 0; i < childrenData.size(); i++) {
             tabDetailPagers.add(new TabDetailPager(mContext, childrenData.get(i)));
         }
         //设置适配器
         viewpager.setAdapter(new MyPagerAdapter());
+        //要在设置适配器之后
+       indicator.setViewPager(viewpager);
+        //监听页面的变化用TabPageIndicator
     }
 
     private class MyPagerAdapter extends PagerAdapter {
+        public CharSequence getPageTitle(int position) {
+            return childrenData.get(position).getTitle();
+        }
+
         @Override
         public int getCount() {
             return tabDetailPagers.size();
