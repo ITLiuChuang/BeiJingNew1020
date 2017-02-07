@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.atguigu.beijingnew1020.R;
+import com.atguigu.beijingnew1020.activity.MainActivity;
 import com.atguigu.beijingnew1020.base.MenuDetailBasePager;
 import com.atguigu.beijingnew1020.bean.NewsCenterBean;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.viewpagerindicator.TabPageIndicator;
 
 import java.util.ArrayList;
@@ -67,6 +69,8 @@ public class NewsMenuDetailPager extends MenuDetailBasePager {
         //要在设置适配器之后
         indicator.setViewPager(viewpager);
         //监听页面的变化用TabPageIndicator
+
+        indicator.setOnPageChangeListener(new MyOnPageChangeListener());
     }
 
     @OnClick(R.id.ib_next)
@@ -102,6 +106,30 @@ public class NewsMenuDetailPager extends MenuDetailBasePager {
             View rootView = tabDetailPager.rootView;
             container.addView(rootView);
             return rootView;
+        }
+    }
+
+    private class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            MainActivity mainActivity = (MainActivity) mContext;
+            if(position == 0) {
+                //北京页面可以滑动
+                mainActivity.getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+            }else{
+                //其他不可以滑动
+                mainActivity.getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+            }
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
         }
     }
 }
