@@ -17,6 +17,7 @@ import com.atguigu.beijingnew1020.base.MenuDetailBasePager;
 import com.atguigu.beijingnew1020.bean.NewsCenterBean;
 import com.atguigu.beijingnew1020.bean.TabDetailPagerBean;
 import com.atguigu.beijingnew1020.utils.Constants;
+import com.atguigu.beijingnew1020.utils.DensityUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
@@ -46,6 +47,7 @@ public class TabDetailPager extends MenuDetailBasePager {
     private String url;
 
     private TabDetailPagerAdapter adapter;
+    private int prePosition;
     /**
      * 列表数据
      */
@@ -124,8 +126,31 @@ public class TabDetailPager extends MenuDetailBasePager {
         viewpager.setAdapter(new MyPagerAdapter());
         //监听ViewPager页面的变化
         viewpager.addOnPageChangeListener(new MyOnPageChangeListener());
-        tvTitle.setText(topnews.get(0).getTitle());
+        tvTitle.setText(topnews.get(prePosition).getTitle());
+
+        //把之前所有的移除
+        llGroupPoint.removeAllViews();
+        //添加红点
+        for (int i = 0; i < topnews.size(); i++) {
+            //添加到线性布局
+            ImageView point = new ImageView(mContext);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-2, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+            if (i != 0) {
+                //设置距离左边的距离
+                params.leftMargin = DensityUtil.dip2px(mContext,8);
+                point.setEnabled(false);
+            }else{
+                point.setEnabled(true);
+            }
+            point.setLayoutParams(params);
+
+            //设置图片的选择器
+            point.setBackgroundResource(R.drawable.point_selector);
+            llGroupPoint.addView(point);
+        }
     }
+
 
     private class MyPagerAdapter extends PagerAdapter {
         @Override
@@ -151,7 +176,7 @@ public class TabDetailPager extends MenuDetailBasePager {
                     //请求图片失败
                     .error(R.drawable.news_pic_default)
                     .into(imageView);
-            Log.e("TAG",topnews.size() + "geshuju");
+            Log.e("TAG", topnews.size() + "geshuju");
             //添加到ViewPager和返回
             container.addView(imageView);
 
@@ -167,7 +192,11 @@ public class TabDetailPager extends MenuDetailBasePager {
     private class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+            //把之前的变灰
+            llGroupPoint.getChildAt(prePosition).setEnabled(false);
+            //把当前的变高亮
+            llGroupPoint.getChildAt(position).setEnabled(true);
+            prePosition = position;
         }
 
         @Override

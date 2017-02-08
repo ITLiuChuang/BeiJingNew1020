@@ -30,6 +30,7 @@ public class LeftMenuFragment extends BaseFragment {
      */
     private List<NewsCenterBean.DataBean> datas;
 
+
     /**
      * 点击的位置
      */

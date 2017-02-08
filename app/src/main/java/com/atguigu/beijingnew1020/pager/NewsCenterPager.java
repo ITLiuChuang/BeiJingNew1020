@@ -74,13 +74,14 @@ public class NewsCenterPager extends BasePager {
     /**
      * 联网请求数据
      */
+    private String resultTemp;
     private void getDataFromNet() {
         RequestParams params = new RequestParams(Constants.NEWSCENTER_PAGER_URL);
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 CacheUtils.putString(mContext,Constants.NEWSCENTER_PAGER_URL,result);
-                Log.e("TAG", "请求成功==" + result);
+                Log.e("TAG", "resu=" + result);
                 ProcessData(result);
             }
 
@@ -110,6 +111,7 @@ public class NewsCenterPager extends BasePager {
     private void ProcessData(String json) {
         //1.解析数据：手动解析（用系统的Api解析）和第三方解析json的框架（Gson,fastjson）
         NewsCenterBean centerBean = new Gson().fromJson(json, NewsCenterBean.class);
+        Log.e("TAG", "json==" + json);
         dataBeanList = centerBean.getData();
         Log.e("TAG", "新闻中心解析成功=" + dataBeanList.get(0).getChildren().get(0).getTitle());
         //把新闻中心的数据传递给左侧菜单
