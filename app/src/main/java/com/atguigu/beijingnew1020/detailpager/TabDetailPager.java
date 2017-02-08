@@ -18,6 +18,7 @@ import com.atguigu.beijingnew1020.bean.NewsCenterBean;
 import com.atguigu.beijingnew1020.bean.TabDetailPagerBean;
 import com.atguigu.beijingnew1020.utils.Constants;
 import com.atguigu.beijingnew1020.utils.DensityUtil;
+import com.atguigu.beijingnew1020.view.HorizontalScrollViewPager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
@@ -40,7 +41,7 @@ public class TabDetailPager extends MenuDetailBasePager {
     @InjectView(R.id.listview)
     ListView listview;
 
-    ViewPager viewpager;
+    HorizontalScrollViewPager viewpager;
     TextView tvTitle;
     LinearLayout llGroupPoint;
 
@@ -69,7 +70,7 @@ public class TabDetailPager extends MenuDetailBasePager {
         View view = View.inflate(mContext, R.layout.tab_detail_pager, null);
         ButterKnife.inject(this, view);
         View headerView = View.inflate(mContext, R.layout.header_view, null);
-        viewpager = (ViewPager) headerView.findViewById(R.id.viewpager);
+        viewpager = (HorizontalScrollViewPager) headerView.findViewById(R.id.viewpager);
         tvTitle = (TextView) headerView.findViewById(R.id.tv_title);
         llGroupPoint = (LinearLayout) headerView.findViewById(R.id.ll_group_point);
 
