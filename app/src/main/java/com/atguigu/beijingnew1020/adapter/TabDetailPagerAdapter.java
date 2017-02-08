@@ -1,12 +1,14 @@
 package com.atguigu.beijingnew1020.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.atguigu.baselibrary.CacheUtils;
 import com.atguigu.baselibrary.Constants;
 import com.atguigu.beijingnew1020.R;
 import com.atguigu.beijingnew1020.bean.TabDetailPagerBean;
@@ -17,6 +19,8 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
+import static com.atguigu.beijingnew1020.detailpager.TabDetailPager.ID_ARRAY;
 
 /**
  * Created by 刘闯 on 2017/2/7.
@@ -68,6 +72,16 @@ public class TabDetailPagerAdapter extends BaseAdapter {
                 .error(R.drawable.news_pic_default)
                 .into(viewHolder.ivIcon);
 
+        //重新从取出保存的id数组
+        String idArray = CacheUtils.getString(mContext,ID_ARRAY);
+        if(idArray.contains(newsEntity.getId() + "")) {
+            //该条被点击过-灰色
+            viewHolder.tvTitle.setTextColor(Color.GRAY);
+        }else{
+            //设置黑色
+            viewHolder.tvTitle.setTextColor(Color.BLACK);
+
+        }
         return convertView;
     }
 
