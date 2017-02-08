@@ -1,6 +1,7 @@
 package com.atguigu.beijingnew1020.detailpager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -18,6 +19,7 @@ import com.atguigu.baselibrary.CacheUtils;
 import com.atguigu.baselibrary.Constants;
 import com.atguigu.baselibrary.DensityUtil;
 import com.atguigu.beijingnew1020.R;
+import com.atguigu.beijingnew1020.activity.NewsDetailActivity;
 import com.atguigu.beijingnew1020.adapter.TabDetailPagerAdapter;
 import com.atguigu.beijingnew1020.base.MenuDetailBasePager;
 import com.atguigu.beijingnew1020.bean.NewsCenterBean;
@@ -124,6 +126,13 @@ public class TabDetailPager extends MenuDetailBasePager {
                     CacheUtils.putString(mContext,ID_ARRAY,idArray + ids + ",");
                     adapter.notifyDataSetChanged();
                 }
+
+                //跳转到新闻的浏览页面
+                Intent intent = new Intent(mContext, NewsDetailActivity.class);
+                intent.putExtra("url",Constants.BASE_URL + newsEntity.getUrl());
+                mContext.startActivity(intent);
+
+
             }
         });
         return view;
