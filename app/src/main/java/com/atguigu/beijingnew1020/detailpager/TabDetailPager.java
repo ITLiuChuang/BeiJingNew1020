@@ -11,13 +11,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.atguigu.baselibrary.Constants;
+import com.atguigu.baselibrary.DensityUtil;
 import com.atguigu.beijingnew1020.R;
 import com.atguigu.beijingnew1020.adapter.TabDetailPagerAdapter;
 import com.atguigu.beijingnew1020.base.MenuDetailBasePager;
 import com.atguigu.beijingnew1020.bean.NewsCenterBean;
 import com.atguigu.beijingnew1020.bean.TabDetailPagerBean;
-import com.atguigu.beijingnew1020.utils.Constants;
-import com.atguigu.beijingnew1020.utils.DensityUtil;
 import com.atguigu.beijingnew1020.view.HorizontalScrollViewPager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;

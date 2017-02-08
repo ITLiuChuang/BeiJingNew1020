@@ -1,4 +1,4 @@
-package com.atguigu.beijingnew1020.utils;
+package com.atguigu.baselibrary;
 
 /**
  * Created by 刘闯 on 2017/2/6.

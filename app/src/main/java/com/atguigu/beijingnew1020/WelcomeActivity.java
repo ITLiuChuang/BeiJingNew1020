@@ -10,9 +10,9 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.RelativeLayout;
 
+import com.atguigu.baselibrary.CacheUtils;
 import com.atguigu.beijingnew1020.activity.GuideActivity;
 import com.atguigu.beijingnew1020.activity.MainActivity;
-import com.atguigu.beijingnew1020.utils.CacheUtils;
 
 public class WelcomeActivity extends AppCompatActivity {
     private RelativeLayout activity_welcome;

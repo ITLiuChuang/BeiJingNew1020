@@ -3,10 +3,10 @@ package com.atguigu.beijingnew1020.activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 
+import com.atguigu.baselibrary.DensityUtil;
 import com.atguigu.beijingnew1020.R;
 import com.atguigu.beijingnew1020.fragment.ContentFragment;
 import com.atguigu.beijingnew1020.fragment.LeftMenuFragment;
-import com.atguigu.beijingnew1020.utils.DensityUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
