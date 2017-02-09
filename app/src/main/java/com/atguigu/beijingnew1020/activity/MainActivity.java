@@ -47,8 +47,9 @@ public class MainActivity extends SlidingFragmentActivity {
         //1.开启事物
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         //2.替换:左侧菜单和主要
-        ft.replace(R.id.fl_content, new ContentFragment(), CONENT_TAG);
         ft.replace(R.id.fl_leftmenu, new LeftMenuFragment(), LEFTMENU_TAG);
+        ft.replace(R.id.fl_content, new ContentFragment(), CONENT_TAG);
+
         //3.提交
         ft.commit();
     }
