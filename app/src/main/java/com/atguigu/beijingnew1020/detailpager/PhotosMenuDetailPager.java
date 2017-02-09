@@ -1,37 +1,90 @@
 package com.atguigu.beijingnew1020.detailpager;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.view.Gravity;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
+import com.atguigu.baselibrary.Constants;
+import com.atguigu.beijingnew1020.R;
 import com.atguigu.beijingnew1020.base.MenuDetailBasePager;
+import com.atguigu.beijingnew1020.bean.NewsCenterBean;
+import com.atguigu.beijingnew1020.bean.PhotosMenuDetailPagerBean;
+import com.google.gson.Gson;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * Created by 刘闯 on 2017/2/7.
  */
 
 public class PhotosMenuDetailPager extends MenuDetailBasePager {
-    private TextView textView;
 
-    public PhotosMenuDetailPager(Context context) {
-        super(context);
+
+    private final NewsCenterBean.DataBean dataBean;
+    @InjectView(R.id.recyclerview)
+    RecyclerView recyclerview;
+    private String url;
+
+    public PhotosMenuDetailPager(Context mContext, NewsCenterBean.DataBean dataBean) {
+        super(mContext);
+        this.dataBean = dataBean;
+
     }
+
 
     @Override
     public View initView() {
         //图组详情页面的视图
-        textView = new TextView(mContext);
-        textView.setTextSize(20);
-        textView.setGravity(Gravity.CENTER);
-        textView.setTextColor(Color.RED);
-        return textView;
+        View view = View.inflate(mContext, R.layout.photos_menudetail_pager, null);
+        ButterKnife.inject(this, view);
+        return view;
     }
 
     @Override
     public void initData() {
         super.initData();
-        textView.setText("图组详情页面内容");
+        url = Constants.BASE_URL + dataBean.getUrl();
+        Log.e("TAG", "图组的网络地址=====" + url);
+        getDataFromNet(url);
+    }
+
+    private void getDataFromNet(String url) {
+        RequestParams params = new RequestParams(url);
+        x.http().get(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.e("TAG","图组数据请求成功==");
+                processData(result);
+            }
+
+
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    private void processData(String result) {
+        PhotosMenuDetailPagerBean bean = new Gson().fromJson(result,PhotosMenuDetailPagerBean.class);
+       Log.e("TAG","数组解析数据成功======" + bean.getData().getNews().get(0).getTitle());
+
     }
 }
