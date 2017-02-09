@@ -1,6 +1,7 @@
 package com.atguigu.beijingnew1020.fragment;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 
 public class LeftMenuFragment extends BaseFragment {
-    private ListView listView;
+
     private LeftMenuFragmentAdapter adapter;
 
     /**
@@ -35,9 +36,12 @@ public class LeftMenuFragment extends BaseFragment {
      * 点击的位置
      */
     private int prePosition = 0;
+    ListView listView;
 
     @Override
     public View initView() {
+
+        Log.e("TAG", datas + "qqqqqqqqqqqqqqqqqqqqqqqqq");
         listView = new ListView(mContent);
         listView.setPadding(0, DensityUtil.dip2px(mContent, 40), 0, 0);
 
@@ -61,6 +65,7 @@ public class LeftMenuFragment extends BaseFragment {
 
     /**
      * 根据位置切换到不同的详情页面
+     *
      * @param prePosition
      */
     private void switchPager(int prePosition) {
@@ -77,9 +82,11 @@ public class LeftMenuFragment extends BaseFragment {
 
     public void setData(List<NewsCenterBean.DataBean> dataBeanList) {
         this.datas = dataBeanList;
+        Log.e("TAG", datas + "0000000000000000000000000000000");
 
         //设置适配器
         adapter = new LeftMenuFragmentAdapter();
+        if(listView != null)
         listView.setAdapter(adapter);
         switchPager(prePosition);
     }

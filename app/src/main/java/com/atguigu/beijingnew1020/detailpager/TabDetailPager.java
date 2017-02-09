@@ -247,7 +247,7 @@ public class TabDetailPager extends MenuDetailBasePager {
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             //设置默认和联网请求
             //加载图片
-            Glide.with(mContext).load(Constants.BASE_URL + topnews.get(position).getTitle())
+            Glide.with(mContext).load(Constants.BASE_URL + topnews.get(position).getTopimage())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     //设置默认图片
                     .placeholder(R.drawable.news_pic_default)
