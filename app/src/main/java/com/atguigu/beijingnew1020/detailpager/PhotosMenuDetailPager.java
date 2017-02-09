@@ -1,12 +1,14 @@
 package com.atguigu.beijingnew1020.detailpager;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
 import com.atguigu.baselibrary.Constants;
 import com.atguigu.beijingnew1020.R;
+import com.atguigu.beijingnew1020.adapter.PhotosMenuDetailPagerAdapter;
 import com.atguigu.beijingnew1020.base.MenuDetailBasePager;
 import com.atguigu.beijingnew1020.bean.NewsCenterBean;
 import com.atguigu.beijingnew1020.bean.PhotosMenuDetailPagerBean;
@@ -30,6 +32,7 @@ public class PhotosMenuDetailPager extends MenuDetailBasePager {
     @InjectView(R.id.recyclerview)
     RecyclerView recyclerview;
     private String url;
+    private PhotosMenuDetailPagerAdapter adapter;
 
     public PhotosMenuDetailPager(Context mContext, NewsCenterBean.DataBean dataBean) {
         super(mContext);
@@ -59,10 +62,9 @@ public class PhotosMenuDetailPager extends MenuDetailBasePager {
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.e("TAG","图组数据请求成功==");
+                Log.e("TAG", "图组数据请求成功==");
                 processData(result);
             }
-
 
 
             @Override
@@ -83,8 +85,16 @@ public class PhotosMenuDetailPager extends MenuDetailBasePager {
     }
 
     private void processData(String result) {
-        PhotosMenuDetailPagerBean bean = new Gson().fromJson(result,PhotosMenuDetailPagerBean.class);
-       Log.e("TAG","数组解析数据成功======" + bean.getData().getNews().get(0).getTitle());
+        PhotosMenuDetailPagerBean bean = new Gson().fromJson(result, PhotosMenuDetailPagerBean.class);
+        Log.e("TAG", "数组解析数据成功======" + bean.getData().getNews().get(0).getTitle());
+
+        //设置RecyclerView的适配器
+
+        adapter = new PhotosMenuDetailPagerAdapter(mContext,bean.getData().getNews());
+        recyclerview.setAdapter(adapter);
+
+        //设置布局管理
+        recyclerview.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
 
     }
 }
