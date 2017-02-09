@@ -1,10 +1,12 @@
 package com.atguigu.beijingnew1020.detailpager;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.atguigu.baselibrary.Constants;
 import com.atguigu.beijingnew1020.R;
@@ -90,11 +92,28 @@ public class PhotosMenuDetailPager extends MenuDetailBasePager {
 
         //设置RecyclerView的适配器
 
-        adapter = new PhotosMenuDetailPagerAdapter(mContext,bean.getData().getNews());
+        adapter = new PhotosMenuDetailPagerAdapter(mContext, bean.getData().getNews());
         recyclerview.setAdapter(adapter);
 
         //设置布局管理
-        recyclerview.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
+        recyclerview.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
 
+    }
+
+    private boolean isList = true;
+
+    public void swichListGrid(ImageButton ib_swich_list_gird) {
+        if (isList) {
+            isList = false;
+            //设置布局管理器
+            recyclerview.setLayoutManager(new GridLayoutManager(mContext,2,GridLayoutManager.VERTICAL,false));
+            //按钮设置List效果
+            ib_swich_list_gird.setImageResource(R.drawable.icon_pic_list_type);
+        }else{
+            recyclerview.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
+            isList = true;
+            //按钮设置Grid效果
+            ib_swich_list_gird.setImageResource(R.drawable.icon_pic_grid_type);
+        }
     }
 }
