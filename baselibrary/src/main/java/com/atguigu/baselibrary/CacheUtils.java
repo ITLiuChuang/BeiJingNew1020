@@ -101,7 +101,7 @@ public class CacheUtils {
                     FileInputStream inputStream = new FileInputStream(file);
                     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-                    while ((length = inputStream.read()) != -1) {
+                    while ((length = inputStream.read(buffer)) != -1) {
                         outputStream.write(buffer, 0, length);
                     }
                     //转换成字符串
