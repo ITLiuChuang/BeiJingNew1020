@@ -18,6 +18,9 @@ import com.atguigu.baselibrary.NetCacheUtils;
 import com.atguigu.beijingnew1020.R;
 import com.atguigu.beijingnew1020.activity.PicassoSampleActivity;
 import com.atguigu.beijingnew1020.bean.PhotosMenuDetailPagerBean;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.util.List;
 
@@ -62,12 +65,25 @@ public class PhotosMenuDetailPagerAdapter extends RecyclerView.Adapter<PhotosMen
     private List<PhotosMenuDetailPagerBean.DataEntity.NewsEntity> datas;
 
     private BitmapCacheUtils bitmapCacheUtils;
+    private DisplayImageOptions options;
 
     public PhotosMenuDetailPagerAdapter(Context mContext, List<PhotosMenuDetailPagerBean.DataEntity.NewsEntity> news, RecyclerView recyclerview) {
         this.mContext = mContext;
         this.datas = news;
         this.recyclerView = recyclerview;
         bitmapCacheUtils = new BitmapCacheUtils(handler);
+        options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.news_pic_default)
+                .showImageForEmptyUri(R.drawable.news_pic_default)
+                .showImageOnFail(R.drawable.news_pic_default)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                //设置矩形圆角图片
+                .displayer(new RoundedBitmapDisplayer(10))
+                .build();
+
     }
 
     @Override
@@ -83,18 +99,22 @@ public class PhotosMenuDetailPagerAdapter extends RecyclerView.Adapter<PhotosMen
 
         holder.tvTitle.setText(newsEntity.getTitle());
        /* //加载图片
+       //Glide加载图片
         Glide.with(mContext).load(Constants.BASE_URL + newsEntity.getListimage())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.news_pic_default)
                 .error(R.drawable.news_pic_default)
                 .into(holder.ivIcon);*/
-        //设置标识
+        /*//设置标识
+        //三级缓存
         holder.ivIcon.setTag(position);
         Bitmap bitmap = bitmapCacheUtils.getBitmapFromNet(Constants.BASE_URL + newsEntity.getListimage(), position);
         if (bitmap != null) {//内地或者本地
             Log.e("TAG", "我是本地得到的哦==" + bitmap);
             holder.ivIcon.setImageBitmap(bitmap);
-        }
+        }*/
+        //ImageLoader加载图片
+        ImageLoader.getInstance().displayImage(Constants.BASE_URL + newsEntity.getListimage(), holder.ivIcon, options);
     }
 
     @Override
