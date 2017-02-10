@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.atguigu.baselibrary.Constants;
 import com.atguigu.beijingnew1020.R;
@@ -56,7 +55,7 @@ public class PhotosMenuDetailPager extends MenuDetailBasePager {
 
         //设置下拉多少距离起作用
         swipe_refresh_layout.setDistanceToTriggerSync(100);//设置下拉距离
-        swipe_refresh_layout.setColorSchemeColors(Color.BLUE,Color.BLACK,Color.RED,Color.GREEN);
+        swipe_refresh_layout.setColorSchemeColors(Color.BLUE, Color.BLACK, Color.RED, Color.GREEN);
         //设置背景的颜色
         swipe_refresh_layout.setProgressBackgroundColorSchemeResource(android.R.color.holo_blue_bright);
 
@@ -64,7 +63,6 @@ public class PhotosMenuDetailPager extends MenuDetailBasePager {
         swipe_refresh_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Toast.makeText(mContext, "wedsjkmd,fb", Toast.LENGTH_SHORT).show();
                 getDataFromNet(url);
             }
         });
@@ -113,7 +111,7 @@ public class PhotosMenuDetailPager extends MenuDetailBasePager {
 
         //设置RecyclerView的适配器
 
-        adapter = new PhotosMenuDetailPagerAdapter(mContext, bean.getData().getNews());
+        adapter = new PhotosMenuDetailPagerAdapter(mContext, bean.getData().getNews(), recyclerview);
         recyclerview.setAdapter(adapter);
 
         //设置布局管理

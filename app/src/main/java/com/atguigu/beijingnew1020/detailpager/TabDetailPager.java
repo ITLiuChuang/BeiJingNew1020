@@ -298,6 +298,7 @@ public class TabDetailPager extends MenuDetailBasePager {
                     switch (event.getAction()) {
 
                         case MotionEvent.ACTION_DOWN://按下
+
                             handler.removeCallbacksAndMessages(null);
                             break;
                         case MotionEvent.ACTION_UP://离开
