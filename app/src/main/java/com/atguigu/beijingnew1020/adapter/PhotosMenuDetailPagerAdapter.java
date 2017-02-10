@@ -91,7 +91,8 @@ public class PhotosMenuDetailPagerAdapter extends RecyclerView.Adapter<PhotosMen
         //设置标识
         holder.ivIcon.setTag(position);
         Bitmap bitmap = bitmapCacheUtils.getBitmapFromNet(Constants.BASE_URL + newsEntity.getListimage(), position);
-        if (bitmap != null) {
+        if (bitmap != null) {//内地或者本地
+            Log.e("TAG", "我是本地得到的哦==" + bitmap);
             holder.ivIcon.setImageBitmap(bitmap);
         }
     }
