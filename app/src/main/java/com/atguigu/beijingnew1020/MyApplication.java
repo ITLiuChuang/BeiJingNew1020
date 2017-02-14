@@ -11,6 +11,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import org.xutils.x;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.sharesdk.framework.ShareSDK;
 
 
 /**
@@ -26,7 +27,9 @@ public class MyApplication extends Application {
 
         JPushInterface.setDebugMode(true);    // 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);            // 初始化 JPush
-        initImageLoader(this);
+        initImageLoader(this);//初始化ImageLoader
+
+        ShareSDK.initSDK(this);//初始化ShareSDK
     }
 
     public static void initImageLoader(Context context) {

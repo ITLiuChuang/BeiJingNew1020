@@ -125,11 +125,19 @@ public class NewsMenuDetailPager extends MenuDetailBasePager {
                 //其他不可以滑动
                 mainActivity.getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
             }
+
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
-
+            if (state == ViewPager.SCROLL_STATE_IDLE) {
+                for (int i = 0; i < tabDetailPagers.size(); i++) {
+                    if (tabDetailPagers.get(i).handler != null) {
+                        tabDetailPagers.get(i).handler.removeCallbacksAndMessages(null);
+                        tabDetailPagers.get(i).handler.sendEmptyMessageDelayed(0, 1000);
+                    }
+                }
         }
+    }
     }
 }

@@ -183,7 +183,7 @@ public class TabDetailPager extends MenuDetailBasePager {
         });
     }
 
-    private InternalHandler handler;
+    public InternalHandler handler;
 
     private void processData(String result) {
         TabDetailPagerBean pagerBean = new Gson().fromJson(result, TabDetailPagerBean.class);
