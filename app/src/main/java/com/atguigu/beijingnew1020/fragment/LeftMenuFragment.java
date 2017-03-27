@@ -1,7 +1,6 @@
 package com.atguigu.beijingnew1020.fragment;
 
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -41,7 +40,6 @@ public class LeftMenuFragment extends BaseFragment {
     @Override
     public View initView() {
 
-        Log.e("TAG", datas + "qqqqqqqqqqqqqqqqqqqqqqqqq");
         listView = new ListView(mContent);
         listView.setPadding(0, DensityUtil.dip2px(mContent, 40), 0, 0);
 
@@ -82,7 +80,6 @@ public class LeftMenuFragment extends BaseFragment {
 
     public void setData(List<NewsCenterBean.DataBean> dataBeanList) {
         this.datas = dataBeanList;
-        Log.e("TAG", datas + "0000000000000000000000000000000");
 
         //设置适配器
         adapter = new LeftMenuFragmentAdapter();

@@ -88,12 +88,11 @@ public class ContentFragment extends BaseFragment {
     }
 
     /**
-     *
      * @return
      */
-   public NewsCenterPager getNewsCenterPager(){
-       return (NewsCenterPager) basePagers.get(1);
-   }
+    public NewsCenterPager getNewsCenterPager() {
+        return (NewsCenterPager) basePagers.get(1);
+    }
 
     private class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
         @Override

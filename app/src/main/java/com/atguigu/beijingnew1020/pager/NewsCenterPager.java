@@ -113,7 +113,6 @@ public class NewsCenterPager extends BasePager {
         NewsCenterBean centerBean = new Gson().fromJson(json, NewsCenterBean.class);
         Log.e("TAG", "json==" + json);
         dataBeanList = centerBean.getData();
-        Log.e("TAG",dataBeanList+"1111111111111111111111111111");
         Log.e("TAG", "新闻中心解析成功=" + dataBeanList.get(0).getChildren().get(0).getTitle());
         //把新闻中心的数据传递给左侧菜单
         MainActivity mainActivity = (MainActivity) mContext;
